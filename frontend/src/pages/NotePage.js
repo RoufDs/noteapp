@@ -54,10 +54,15 @@ const NotePage = ({ match, history }) => {
             deleteNote()
         }else if(noteId !== 'new') {
             updateNote()
-        }else if(noteId === 'new' && note !== null) {
+        }else if(noteId === 'new' && note.body !== null) {
             createNote()
         }
         history.push('/')
+    }
+
+    let handleChange = (value) => {
+        setNote(note => ({...note, 'body': value}))
+        console.log('Handle Change:', note)
     }
 
     return (
@@ -72,7 +77,7 @@ const NotePage = ({ match, history }) => {
                     <button onClick={handleSubmit}>Done</button>
                 )}
             </div>
-            <textarea onChange={(e) => {setNote({...note, 'body': e.target.value})}} defaultValue={note?.body}></textarea>
+            <textarea onChange={(e) => { handleChange(e.target.value) }} value={note?.body}></textarea>
         </div>
     )
 }
